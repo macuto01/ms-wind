@@ -8,7 +8,7 @@ namespace MSWind.Crypto
     /// </summary>
     public class WzRSAEncrypt
     {
-        [DllImport("WzCrypto.dll")]
+        [DllImport("WzCrypto.dll", CallingConvention=CallingConvention.Cdecl)]
         static extern int WzRSAEncryptString(byte[] ke, byte[] ran, byte[] dat, byte[] buff);
 
         /// <summary>
