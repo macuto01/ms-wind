@@ -47,7 +47,7 @@ namespace MSWind.Scripts
                 //MessageBox.Show("Actual username: " + client.Account.Accountusername + "; Account id: " + client.Account.Account_id);
 
                 PacketWriter Writer = new PacketWriter();
-                Writer.WriteShort(PacketOpcodes.sPin);
+                Writer.WriteShort((short)PacketOpcodes.sPin);
                 Writer.WriteByte(1);
                 Writer.WriteByte(0);
                 Writer.WriteInt(client.Account.AccountID);
