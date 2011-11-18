@@ -22,7 +22,7 @@ namespace MSWind.Scripts
             byte[] Buffer = { 0x00, 0xE0, 0x4D, 0xA6, 0xA5, 0xCF, 0xB4, 0x68, 0xCB, 0xE4, 0x00, 0x00, 0x00, 0x00, 0x32, 0xFD, 0x00, 0x00 };
 
             PacketWriter Writer = new PacketWriter();
-            Writer.WriteShort(PacketOpcodes.sChannelConnect);
+            Writer.WriteShort((short)PacketOpcodes.sChannelConnect);
             Writer.WriteInt(CharacterID);
             Writer.WriteBytes(Buffer);
             Writer.WriteBytes(client.Account.SessionID);

@@ -49,7 +49,14 @@ namespace MSWind.Scripts
                     client.Account.Characters[i].MP = Reader.ReadShort();
                     client.Account.Characters[i].MaxMp = Reader.ReadShort();
                     client.Account.Characters[i].AP = Reader.ReadShort();
-                    client.Account.Characters[i].SP = Reader.ReadShort();
+                    if (client.Account.Characters[i].Job / 1000 == 3 || client.Account.Characters[i].Job / 100 == 22 || client.Account.Characters[i].Job == 2001)
+                    {
+                        byte spCount = Reader.ReadByte();
+                        Reader.Skip(spCount * 2);//sp for each job level
+                    }
+                    else
+                        client.Account.Characters[i].SP = Reader.ReadShort();
+                    //Reader.Skip(Reader.ReadByte() * 2);
                     client.Account.Characters[i].XP = Reader.ReadInt();
                     client.Account.Characters[i].Fame = Reader.ReadShort();
                     client.Account.Characters[i].Map = Reader.ReadInt();
@@ -62,7 +69,7 @@ namespace MSWind.Scripts
                     Reader.ReadByte();   // gender (again)
                     Reader.ReadByte();   // skin (again)
                     Reader.ReadInt();  // face (again)
-                    Reader.ReadByte();   // unknown, odin says something about "mega", whatever the fuck that is
+                    Reader.ReadByte();   // unknown
                     Reader.ReadInt();  // hair (again)
 
                     byte Position = Reader.ReadByte();
@@ -85,7 +92,8 @@ namespace MSWind.Scripts
                     
                     Reader.ReadBytes(12);    // pet info
                     Reader.ReadByte();       // unknown
-                    Reader.ReadByte();       // unknown
+                    if(Reader.ReadByte()!=0)
+                        Reader.Skip(16);       // ranking
                 }
 
                 Reader.ReadShort();          // unknown

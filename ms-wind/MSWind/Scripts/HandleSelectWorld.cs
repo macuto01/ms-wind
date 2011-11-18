@@ -35,7 +35,7 @@ namespace MSWind.Scripts
             else
             {
                 PacketWriter Writer = new PacketWriter();
-                Writer.WriteShort(PacketOpcodes.sSelectWorld);
+                Writer.WriteShort((short)PacketOpcodes.sSelectWorld);
                 Writer.WriteShort(client.Account.Worlds[client.Account.WorldIndex].ID);
                 client.SendPacket(Writer);
             }

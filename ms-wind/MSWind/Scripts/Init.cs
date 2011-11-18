@@ -17,11 +17,11 @@ namespace MSWind.Scripts
             client.ChangeConnection("109.234.73.11", 8484);
 
             PacketWriter Writer = new PacketWriter();
-            Writer.WriteShort(PacketOpcodes.sInit1);
+            Writer.WriteShort((short)PacketOpcodes.sInit1);
             client.SendPacket(Writer);
             Writer.Reset(0);
 
-            Writer.WriteShort(PacketOpcodes.sInit2);
+            Writer.WriteShort((short)PacketOpcodes.sInit2);
             client.SendPacket(Writer);
         }
     }

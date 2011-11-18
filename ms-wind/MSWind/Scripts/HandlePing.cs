@@ -7,7 +7,7 @@ namespace MSWind.Scripts
         public HandlePing(Client client)
         {
             PacketWriter Writer = new PacketWriter();
-            Writer.WriteShort(PacketOpcodes.sPong);
+            Writer.WriteShort((short)PacketOpcodes.sPong);
 
             client.SendPacket(Writer);
         }

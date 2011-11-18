@@ -28,43 +28,43 @@ namespace MSWind
             byte[] Packet = Reader.ReadBytes(packet.Length - 2);
             switch (header)
             {
-                case PacketOpcodes.rPing:
+                case (short)PacketOpcodes.rPing:
                     new HandlePing(this);
                     break;
 
-                case PacketOpcodes.rLogin:
+                case (short)PacketOpcodes.rLogin:
                     new HandleLoginInfo(this, Packet);
                     break;
 
-                case PacketOpcodes.rPwKey:
+                case (short)PacketOpcodes.rPwKey:
                     new HandleLogin(this, Packet);
                     break;
 
-                case PacketOpcodes.rPin:
+                case (short)PacketOpcodes.rPin:
                     new HandlePin(this, Packet);
                     break;
 
-                case PacketOpcodes.rWorldInfo:
+                case (short)PacketOpcodes.rWorldInfo:
                     new HandleWorldInfo(this, Packet);
                     break;
 
-                case PacketOpcodes.rWorldSelectAllClear:
+                case (short)PacketOpcodes.rWorldSelectAllClear:
                     new HandleSelectWorld(this);
                     break;
 
-                case PacketOpcodes.rChannelSelectAllClear:
+                case (short)PacketOpcodes.rChannelSelectAllClear:
                     new HandleSelectChannel(this);
                     break;
 
-                case PacketOpcodes.rCharInfo:
+                case (short)PacketOpcodes.rCharInfo:
                     new HandleCharList(this, Packet);
                     break;
 
-                case PacketOpcodes.rServerInfo:
+                case (short)PacketOpcodes.rServerInfo:
                     new HandleServerConnect(this, Packet);
                     break;
 
-                case PacketOpcodes.rLoggedIn:
+                case (short)PacketOpcodes.rLoggedIn:
                     new HandleLoggedIn(this, Packet);
                     break;
 
@@ -115,7 +115,24 @@ namespace MSWind
                 Thread.Sleep(1000);
             }
             Account.Characters[Account.CharacterIndex].LoggingIn = false;
+            Thread SpamGP = new Thread(StartSpamGP);
+            SpamGP.Start();
             MForm.ChangedAccount();
+        }
+
+        public void StartSpamGP()
+        {
+            while (Account.Characters[Account.CharacterIndex].LoggedIn)
+            {
+                PacketWriter Writer = new PacketWriter();
+                // 95 00 1D 08 00 00 00
+                Writer.WriteShort(0x95);
+                Writer.WriteShort(0x81D);
+                Writer.WriteShort(0);
+                Writer.WriteByte(0);
+                SendPacket(Writer);
+                Thread.Sleep(1);
+            }
         }
 
         /// <summary>

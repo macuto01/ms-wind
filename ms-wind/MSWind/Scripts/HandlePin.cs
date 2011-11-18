@@ -15,16 +15,24 @@ namespace MSWind.Scripts
             { 
                 PacketWriter Writer = new PacketWriter();
 
-                Writer.WriteShort(PacketOpcodes.sWorldInfoRequest);
+                Writer.WriteShort((short)PacketOpcodes.sWorldInfoRequest);
                 client.SendPacket(Writer);
             }
             else if (type == 1)
             {
                 MessageBox.Show("Please set a pin.");
+                client.MapleConnect.Close();
+                client.LoginThread.Abort();
+                client.Account.LoggingIn = false;
+                client.MForm.ChangedAccount();
             }
             else if (type == 2)
             {
                 MessageBox.Show("Incorrect pin");
+                client.MapleConnect.Close();
+                client.LoginThread.Abort();
+                client.Account.LoggingIn = false;
+                client.MForm.ChangedAccount();
             }
         }
     }

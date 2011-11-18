@@ -25,9 +25,9 @@ namespace MSWind.Scripts
             byte[] Buffer = { 0x00, 0xE0, 0x4D, 0xA6, 0xA5, 0xCF, 0xB4, 0x68, 0xCB, 0xE4, 0x00, 0x00, 0x00, 0x00, 0x32, 0xFD, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00 };
 
             PacketWriter Writer = new PacketWriter();
-            Writer.WriteShort(PacketOpcodes.sLogin);
+            Writer.WriteShort((short)PacketOpcodes.sLogin);
             Writer.WriteMapleString(client.Account.Username);
-            Writer.WriteMapleString(PwEncrypted.ToString());
+            Writer.WriteMapleString(PwEncrypted);
             Writer.WriteMapleString("00E04DA6A5CF_B468CBE4");
             Writer.WriteBytes(Buffer);
             client.SendPacket(Writer);
